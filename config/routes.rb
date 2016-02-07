@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'signup', to: 'users#new'
   get 'signin', to: 'sessions#new'
   get 'login', to: 'sessions#new'
-  get 'signout', to: 'sessions#destroy'
+  delete 'signout', to: 'sessions#destroy'
   #get 'ratings', to: 'ratings#index'
   #get 'ratings/new', to:'ratings#new'
   #post 'ratings', to: 'ratings#create'
