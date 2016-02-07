@@ -16,12 +16,15 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :style %><br>
-    <%= f.text_field :style %>
+    <%= form_for(@beer) do |f| %>
+      <%= f.select :id, options_for_select(@styles, :id) %>
+
+      <% end %>
   </div>
   <div class="field">
-    <%= f.label :brewery_id %><br>
-    <%= f.number_field :brewery_id %>
+    <%= form_for(@beer) do |f| %>
+      <%= f.select :brewery_id, options_from_collection_for_select(@breweries, :id, :name) %>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>
