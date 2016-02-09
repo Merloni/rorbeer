@@ -6,5 +6,14 @@
    	</li>
  <% end %>
 </ul>
+<p>
+	<% if @ratings.empty? %>
+	No ratings yet!
+	<% end %>
 
+</p>
+
+
+<% if current_user %>
 <%= link_to 'New rating', new_rating_path %>
+<% end %>

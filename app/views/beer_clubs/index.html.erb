@@ -1,0 +1,20 @@
+<ul>
+  <% if not @beerclubs.empty? %>
+
+    <% @beerclubs.each do |bc| %>
+      <i>Name: </i><%=link_to bc.name, bc  %> <i>City: </i><%=bc.city %><br>
+
+
+      <% end %>
+
+  <% else %>
+  No beerclubs made yet.
+
+  <% end %>
+
+  <% if current_user %><br>
+  <%= link_to 'New beerclub', new_beer_club_path %>
+
+  <% end %>
+
+</ul>
