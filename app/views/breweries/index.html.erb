@@ -12,6 +12,7 @@
   </thead>
 
   <tbody>
+
     <% @breweries.each do |brewery| %>
       <tr>
         <td><%= link_to brewery.name, brewery %></td>
@@ -24,8 +25,7 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
+<p>Number of breweries: <%= @breweries.count %></p>
 
 
 <% if current_user %>

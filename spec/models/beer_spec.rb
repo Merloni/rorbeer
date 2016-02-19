@@ -14,6 +14,6 @@ RSpec.describe Beer, type: :model do
   it "is not saved if no style is given" do
     beer = Beer.create name:"ASD"
     expect(beer).not_to be_valid
-    expect(Beer.count).to eq(0)
+    expect(Beer.count).to eq(0  )
   end
 end

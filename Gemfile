@@ -13,7 +13,22 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
 end
+
+group :test do
+  gem 'simplecov', reguire: false
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'launchy'
+end
+
+
+
+
+
+
 ruby '2.3.0'
+
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
