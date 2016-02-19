@@ -15,7 +15,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'simplecov', reguire: false
+  gem 'simplecov', require: false
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'

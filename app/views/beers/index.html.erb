@@ -27,6 +27,5 @@
 
 <br>
 
-<% if current_user %>
-  <%= link_to 'New Beer', new_beer_path %>
-<% end %>
+
+<%= link_to('New Beer', new_beer_path) if current_user%>
