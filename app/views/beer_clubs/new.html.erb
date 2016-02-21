@@ -1,30 +1,5 @@
-<h1>New beerclub!</h1>
+<h1>New Beer Club</h1>
 
-
-<%= form_for(@beerclub) do |f| %>
-    <% if @beerclub.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@beerclub.errors.count, "error") %> prohibited beerclub from being saved:</h2>
-
-          <ul>
-            <% @beerclub.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
-
-    Name: <%= f.text_field :name %>
-    City: <%= f.text_field :city %>
-    Founded: <%= f.number_field :founded %>
-
-    <br>
-    <%= f.submit %>
-
-
-
-
-<% end %>
-
+<%= render 'form' %>
 
 <%= link_to 'Back', beer_clubs_path %>

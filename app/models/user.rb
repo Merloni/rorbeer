@@ -1,26 +1,50 @@
 class User < ActiveRecord::Base
-	include AverageRating
+  include RatingAverage
 
-	has_secure_password
+  validates :username, uniqueness: true,
+                       length: { minimum: 3, maximum: 15 }
 
-  validates :username, uniqueness: true, length: { minimum: 3, maximum: 15 }
-  validates :password, length: {minimum: 4}, format: {with: /.*[0-9].*/, message: " must contain atleast one number"}
+  validates :password, length: { minimum: 4 },
+                       format: {
+                          with: /\d.*[A-Z]|[A-Z].*\d/,
+                          message: "has to contain one number and one upper case letter"
+                       }
 
+  has_many :ratings, dependent: :destroy
+  has_many :beers, through: :ratings
+  has_many :memberships
+  has_many :beer_clubs, through: :memberships
 
-	has_many :ratings, dependent: :destroy
-	has_many :beers, through: :ratings
+  has_secure_password
 
-	def favourite_beer
+  def favorite_beer
+    return nil if ratings.empty?
+    ratings.order(score: :desc).limit(1).first.beer
+  end
 
-		return nil if ratings.empty?
-		ratings.order(score: :desc).limit(1).first.beer
+  def favorite_style
+    return nil if ratings.empty?
 
-	end
-	def favourite_style
+    rated = ratings.map{ |r| r.beer.style }.uniq
+    rated.sort_by { |style| -rating_of_style(style) }.first
+  end
 
-		return ni if ratings.empty?
+  def favorite_brewery
+    return nil if ratings.empty?
 
+    rated = ratings.map{ |r| r.beer.brewery }.uniq
+    rated.sort_by { |brewery| -rating_of_brewery(brewery) }.first
+  end
 
-	end
+  private
 
+  def rating_of_style(style)
+    ratings_of = ratings.select{ |r| r.beer.style==style }
+    ratings_of.map(&:score).inject(&:+) / ratings_of.count.to_f
+  end
+
+  def rating_of_brewery(brewery)
+    ratings_of = ratings.select{ |r| r.beer.brewery==brewery }
+    ratings_of.map(&:score).inject(&:+) / ratings_of.count.to_f
+  end
 end

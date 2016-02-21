@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<p> Number of breweries: <%= @breweries.count %> </p>
+
 <h1>Listing Breweries</h1>
 
 <table>
@@ -7,12 +9,11 @@
     <tr>
       <th>Name</th>
       <th>Year</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
-
     <% @breweries.each do |brewery| %>
       <tr>
         <td><%= link_to brewery.name, brewery %></td>
@@ -25,10 +26,9 @@
     <% end %>
   </tbody>
 </table>
-<p>Number of breweries: <%= @breweries.count %></p>
 
+<br>
 
-<% if current_user %>
-
-  <%= link_to 'New Brewery', new_brewery_path %>
-<% end %>
+<%= link_to 'New Brewery', new_brewery_path %>
+<br>
+<%= link_to 'list of beers', beers_path %>
