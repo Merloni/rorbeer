@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  resources :styles
+  resources :organizations
   resources :beer_clubs
   resources :memberships
   resources :users
   resource :session, only: [:new, :create, :destroy]
+  resources :places, only: [:index, :show]
 
 
   get 'places', to: 'places#index'
@@ -14,6 +17,7 @@ Rails.application.routes.draw do
   resources :beers
   resources :breweries
   resources :ratings, only: [:index, :new, :create, :destroy]
+
 
   root 'breweries#index'
 

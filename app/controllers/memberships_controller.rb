@@ -16,6 +16,7 @@ class MembershipsController < ApplicationController
   def new
     @membership = Membership.new
     @clubs = BeerClub.all.reject{ |club| current_user.in? club.members }
+
   end
 
   # GET /memberships/1/edit
@@ -30,7 +31,7 @@ class MembershipsController < ApplicationController
     if not current_user.in? club.members and @membership.save
       current_user.memberships << @membership
       @membership.save
-      redirect_to @membership.user, notice: "You've joined to #{@membership.beer_club.name}"
+      redirect_to @membership.beer_club, notice: "You've joined to #{@membership.beer_club.name}"
     else
       @clubs = BeerClub.all
       render :new
@@ -56,9 +57,10 @@ class MembershipsController < ApplicationController
   def destroy
     @membership.destroy
     respond_to do |format|
-      format.html { redirect_to memberships_url, notice: 'Membership was successfully destroyed.' }
+      format.html { redirect_to current_user, notice: 'Membership was successfully destroyed.' }
       format.json { head :no_content }
     end
+
   end
 
   private
