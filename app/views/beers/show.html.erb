@@ -1,37 +1,34 @@
 <p id="notice"><%= notice %></p>
 
-<h2><%= @beer %></h2>
-
-<p>
-  <strong>Name:</strong>
-  <%= @beer.name %>
-</p>
-
+<h2><%= @beer.name %></h2>
 <p>
   <strong>Style:</strong>
-  <%= @beer.style.name %>
+  <%= link_to @beer.style.name, @beer.style %>
 </p>
 
 <p>
   <strong>Brewery:</strong>
-  <%= @beer.brewery.name %>
+  <%= link_to @beer.brewery.name, @beer.brewery %>
 </p>
 
 <p>
   <% if @beer.ratings.empty? %>
-      Beer has not yet been rated!
+    beer has not yet been rated!
   <% else %>
-      Beer has <%= pluralize(@beer.ratings.count, 'rating') %>, average <%= @beer.average_rating %>
+    beer has <%= pluralize(@beer.ratings.count, 'rating') %>, average <%= round(@beer.average_rating) %>
   <% end %>
 </p>
+
 <% if current_user %>
-    <h4>Give a rating:</h4>
 
-    <%= form_for(@rating) do |f| %>
-        <%= f.hidden_field :beer_id %>
-        Score: <%= f.number_field :score %>
-        <%= f.submit %>
-    <% end %>
+  <h4>give a rating:</h4>
 
-    <%= link_to 'Edit', edit_beer_path(@beer) if current_user %>
+  <%= form_for(@rating) do |f| %>
+    <%= f.hidden_field :beer_id %>
+    score: <%= f.number_field :score %>
+    <%= f.submit class:"btn btn-primary"%>
+  <% end %>
+
 <% end %>
+
+<%= edit_and_destroy_buttons(@beer) %>

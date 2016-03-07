@@ -10,37 +10,38 @@
 
 <% if @beer_club.members.any? %>
 
-    <h3>Members</h3>
+  <h3>Members</h3>
 
-    <ul>
-      <% @beer_club.members.each do |member| %>
-          <li>
-            <%= link_to member.username, member %>
-          </li>
-      <% end %>
-    </ul>
+  <ul>
+    <% @beer_club.members.each do |member| %>
+      <li>
+      <%= link_to member.username, member %>
+      </li>
+    <% end %>
+  </ul>
 
 <% else %>
 
-    <p>
-      no members
-    </p>
+  <p>
+    no members
+  </p>
 
 <% end %>
-<% if current_user %>
-    <% if not @beer_club.members.include? User.find_by id:current_user.id %>
-        <%= form_for(@membership) do |f| %>
 
-            <%= f.hidden_field :beer_club_id %>
-            <%= f.submit value:"Join the club" %>
-        <% end %>
-
-    <% else %>
-        <%= form_for(@membership, method: "delete") do |f| %>
-            <%= f.hidden_field :beer_club_id %>
-            <%= f.submit value:"End the membership" %>
-        <% end %>
-
-    <% end %>
+<% if current_user.in? @beer_club.members %>
+  <%= form_for(@membership, method: "delete") do |f| %>
+    <%= f.hidden_field :beer_club_id %>
+    <%= f.submit value: "end the membership" %>
+  <% end %>
 <% end %>
 
+<% if current_user and not current_user.in? @beer_club.members %>
+
+  <%= form_for(@membership) do |f| %>
+    <%= f.hidden_field :beer_club_id %>
+    <%= f.submit value:"join the club" %>
+  <% end %>
+
+<% end %>
+
+<%= edit_and_destroy_buttons(@beer_club) %>
