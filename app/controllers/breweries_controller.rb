@@ -8,6 +8,31 @@ class BreweriesController < ApplicationController
   def index
     @active_breweries = Brewery.active
     @retired_breweries = Brewery.retired
+
+    order = params[:order] || 'name'
+
+
+    @active_breweries = case order
+                          when 'name' then @active_breweries.sort_by{|b| b.name}
+                          when 'year' then @active_breweries.sort_by{|b| b.year}
+                        end
+
+    @retired_breweries = case order
+                           when 'name' then @retired_breweries.sort_by{|b| b.name}
+                           when 'year' then @retired_breweries.sort_by{|b| b.year}
+                         end
+
+    unless session[:reverse]
+      session[:reverse] = true
+    else
+      @retired_breweries = @retired_breweries.reverse
+      @active_breweries = @active_breweries.reverse
+      session[:reverse] = false
+    end
+
+  end
+  def brewerieslist
+
   end
 
   # GET /breweries/1
@@ -74,13 +99,13 @@ class BreweriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_brewery
-      @brewery = Brewery.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_brewery
+    @brewery = Brewery.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def brewery_params
-      params.require(:brewery).permit(:name, :year, :active)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def brewery_params
+    params.require(:brewery).permit(:name, :year, :active)
+  end
 end

@@ -1,8 +1,12 @@
 class SessionsController < ApplicationController
+
+
   def new
+
   end
 
   def create
+
     user = User.find_by username: params[:username]
     if user && user.authenticate(params[:password])
       if user.locked?
@@ -20,4 +24,14 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     redirect_to :root
   end
+  def ordering
+    if params[:order].nil?
+      session[:last_order] = 'name'
+    end
+  else
+
+    session[:last_order] = params[:order]
+  end
+
+
 end

@@ -7,10 +7,12 @@ Rails.application.routes.draw do
   end
 
   resource :session, only: [:new, :create, :destroy]
-
+  get 'beerlist', to: 'beers#list'
   get 'signup', to: 'users#new'
   get 'signin', to: 'sessions#new'
   delete 'signout', to: 'sessions#destroy'
+  get 'ngbeerlist', to:'beers#nglist'
+  get 'brewerieslist', to:'breweries#brewerieslist'
 
   resources :beers
   resources :breweries do

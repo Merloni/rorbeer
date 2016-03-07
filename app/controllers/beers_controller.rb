@@ -37,6 +37,10 @@ class BeersController < ApplicationController
     @styles = Style.all
   end
 
+  def list
+
+  end
+
   # POST /beers
   # POST /beers.json
   def create
@@ -67,6 +71,8 @@ class BeersController < ApplicationController
         format.json { render json: @beer.errors, status: :unprocessable_entity }
       end
     end
+  end
+  def nglist
   end
 
   # DELETE /beers/1
