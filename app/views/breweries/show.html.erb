@@ -2,6 +2,10 @@
 
 <h2>
   <%= @brewery.name %>
+  <% if not @brewery.active %>
+    <span class="label label-info">Retired</span>
+
+  <% end %>
 </h2>
 
 <em>
@@ -16,15 +20,15 @@
 
 <p>
   <% @brewery.beers.each do |beer| %>
-    <%= link_to beer.name, beer %>
+      <%= link_to beer.name, beer %>
   <% end %>
 </p>
 
 <p>
   <% if @brewery.ratings.empty? %>
-    brewery has no ratings
+      brewery has no ratings
   <% else %>
-    brewery has <%= pluralize(@brewery.ratings.count, 'rating') %>, average <%= @brewery.average_rating %>
+      brewery has <%= pluralize(@brewery.ratings.count, 'rating') %>, average <%= @brewery.average_rating %>
   <% end %>
 </p>
 
